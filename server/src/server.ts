@@ -4,6 +4,7 @@ import Routes from "./routes";
 
 export default class Server {
   constructor(app: Application) {
+    // TODO: Add Acceptable cors params
     // this.config(app);
     new Routes(app);
   }

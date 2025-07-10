@@ -4,6 +4,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app: Application = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 import { connectToDatabase } from './src/config/mongoose';
 const server: Server = new Server(app);
 const PORT: number = parseInt(process.env.PORT!, 10);
