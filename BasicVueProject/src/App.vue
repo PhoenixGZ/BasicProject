@@ -5,14 +5,11 @@ import BasicButton from './components/BasicButton.vue'
 
 <template>
   <header>
-  <div>
     <BasicButton label="The text in App.vue will stay when you navigate" />
-    </div>
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
-    <!-- </div> -->
   </header>
 
   <RouterView />
