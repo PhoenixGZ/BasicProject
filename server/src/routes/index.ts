@@ -6,6 +6,6 @@ export default class Routes {
   constructor(app: Application) {
     app.use("/api", homeRoutes);
     app.use('/', userRoutes);
-    console.log("Added routes")
+    console.log("Added route /api")
   }
 }

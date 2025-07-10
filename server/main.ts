@@ -11,10 +11,11 @@ import { connectToDatabase } from './src/config/mongoose';
 const server: Server = new Server(app);
 const PORT: number = parseInt(process.env.PORT!, 10);
 const URL = process.env.URL!
+console.log(`Server is running on ${URL}:${PORT}.`);
 
 connectToDatabase().then(() => {
   app.listen(PORT, URL, function () {
-    console.log(`Server is running on port ${URL}:${PORT}.`);
+    console.log(`Server is running on ${URL}:${PORT}.`);
   })
   .on("error", (err: any) => {
     if (err.code === "EADDRINUSE") {
