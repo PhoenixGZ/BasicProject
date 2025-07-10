@@ -9,6 +9,7 @@ import BasicButton from './components/BasicButton.vue'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/getUsers">Get All Users</RouterLink>
       </nav>
   </header>
 

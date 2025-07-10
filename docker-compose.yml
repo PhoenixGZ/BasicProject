@@ -9,12 +9,12 @@ services:
     command: npm run dev
     depends_on:
       - mongo
-  client:
-    build: ./BasicVueProject
-    ports:
-      - "8080:80"
-    depends_on:
-    - server
+  # client:
+  #   build: ./BasicVueProject
+  #   ports:
+  #     - "8080:80"
+  #   depends_on:
+  #   - server
   mongo:
     image: mongo:6
     container_name: mongo
