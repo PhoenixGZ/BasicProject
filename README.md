@@ -1,5 +1,5 @@
 # BasicService
-A simple Express + TypeScript server setup.
+Simple express backend + Vue frontend
 
 ## 🚀 Getting Started
 
@@ -17,3 +17,4 @@ Currently very basic, plans to add:
 -Dockerise
 -Cut out bloat on frontend and make more basic/familiarise
 -connect frontend + backend so that we have some basic communication going on
+-add a simple mongodb in docker
