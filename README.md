@@ -12,9 +12,9 @@ npm run dev
 
 in respective projects
 
-Currently very basic, plans to add:
--An environment file to adjust ports etc
+Currently a very basic project, plans to add:
+-An environment file to adjust ports etc(low priority)
 -Dockerise
 -Cut out bloat on frontend and make more basic/familiarise
 -connect frontend + backend so that we have some basic communication going on
--add a simple mongodb in docker
+-add a simple mongo db in docker

@@ -4,7 +4,7 @@ import Routes from "./routes";
 
 export default class Server {
   constructor(app: Application) {
-    this.config(app);
+    // this.config(app);
     new Routes(app);
   }
 
