@@ -6,6 +6,8 @@ Simple express backend + Vue frontend
 ### Install dependencies
 
 ```bash
+docker compose up -d
+
 npm install
 npm run dev
 ```

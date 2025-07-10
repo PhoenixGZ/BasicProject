@@ -1,12 +1,13 @@
 import express, { Application } from "express";
 import Server from "./src/server";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app: Application = express();
 import { connectToDatabase } from './src/config/mongoose';
 const server: Server = new Server(app);
-const PORT: number = process.env.PORT ? parseInt(process.env.PORT, 10) : 8080;
-const URL = "localhost";
-console.log("Hey1?")
+const PORT: number = parseInt(process.env.PORT!, 10);
+const URL = process.env.URL!
 
 connectToDatabase().then(() => {
   app.listen(PORT, URL, function () {
