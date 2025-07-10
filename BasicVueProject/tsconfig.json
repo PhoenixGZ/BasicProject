@@ -9,6 +9,10 @@
     }
   ],
   "compilerOptions": {
-    "rootDir": "./BasicVueProject"
+    "rootDir": "./BasicVueProject",
+    "moduleResolution": "Node",
+    "module": "ESNext",
+    "target": "ESNext",
+    "types": ["vite/client"]
   }
 }
