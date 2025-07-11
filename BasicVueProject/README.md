@@ -17,3 +17,7 @@ npm run dev
 ```sh
 npm run build
 ```
+
+## TODO:
+- Make this work in docker
+- make addressing work as expected in docker
