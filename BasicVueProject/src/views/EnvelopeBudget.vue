@@ -4,7 +4,7 @@
 
     <!-- Current Income -->
     <div class="mb-4">
-      <p class="text-lg font-semibold">Available Income: <span class="text-green-600">\${{ income }}</span></p>
+      <p class="text-lg font-semibold">Available Income: <span class="text-green-600">${{ income }}</span></p>
     </div>
 
     <!-- Add Income -->
@@ -12,6 +12,14 @@
       <form @submit.prevent="addIncome">
         <input v-model.number="incomeToAdd" type="number" placeholder="Add Income" class="border p-2 mr-2 w-40" />
         <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Add</button>
+      </form>
+    </div>
+
+    <!-- Create Envelope -->
+    <div class="mb-6">
+      <form @submit.prevent="createEnvelope">
+        <input v-model="newEnvelopeName" type="text" placeholder="New Envelope Name" class="border p-2 mr-2 w-64" />
+        <button type="submit" class="bg-purple-500 text-white px-4 py-2 rounded">Create</button>
       </form>
     </div>
 
@@ -24,8 +32,8 @@
           :key="envelope._id"
           class="flex justify-between items-center border-b py-2"
         >
-          <span>{{ envelope.name }}</span>
-          <span>\${{ envelope.amount }}</span>
+          <span>{{ envelope.name }}</span>&nbsp;
+          <span>${{ envelope.balance }}</span>
         </li>
       </ul>
     </div>
@@ -71,6 +79,8 @@ const amountToAllocate = ref<number | null>(null)
 const selectedSpendEnvelopeId = ref('')
 const amountToSpend = ref<number | null>(null)
 
+const newEnvelopeName = ref('')
+
 const fetchEnvelopes = async () => {
   const res = await fetch('http://localhost:3000/envelope')
   const data = await res.json()
@@ -87,6 +97,17 @@ const addIncome = async () => {
     body: JSON.stringify({ amount: incomeToAdd.value }),
   })
   incomeToAdd.value = null
+  fetchEnvelopes()
+}
+
+const createEnvelope = async () => {
+  if (!newEnvelopeName.value.trim()) return
+  await fetch('http://localhost:3000/envelope/create', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: newEnvelopeName.value, balance: 0 }),
+  })
+  newEnvelopeName.value = ''
   fetchEnvelopes()
 }
 

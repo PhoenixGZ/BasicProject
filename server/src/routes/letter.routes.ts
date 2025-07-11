@@ -6,7 +6,7 @@ const router = Router();
 
 router.get('/', getIncomeAndEnvelopes)
 router.get('/envelopes', getEnvelopes)
-router.post('/envelope', createEnvelope);
+router.post('/create', createEnvelope);
 router.post('/income', addIncome)
 router.post('/allocate', allocateIncome)
 router.post('/spend', spendFromEnvelope)
