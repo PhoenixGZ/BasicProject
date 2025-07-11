@@ -5,11 +5,12 @@ import BasicButton from './components/BasicButton.vue'
 
 <template>
   <header>
-    <BasicButton label="The text in App.vue will stay when you navigate" />
+    <!-- <BasicButton label="The text in App.vue will stay when you navigate" /> -->
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <!-- <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/about">About</RouterLink> -->
         <RouterLink to="/getUsers">Get All Users</RouterLink>
+        <RouterLink to="/postUser">Create New User</RouterLink>
       </nav>
   </header>
 

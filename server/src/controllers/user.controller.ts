@@ -25,4 +25,22 @@ async function getUsers(req: Request, res: Response) {
       }
 }
 
-export {createUser, getUsers}
+async function updateUser (req: Request, res: Response){
+    const { id } = req.params
+    const { name, email } = req.body
+  
+    try {
+      const user = await User.findByIdAndUpdate(id, { name, email }, { new: true })
+  
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' })
+      }
+  
+      res.json(user)
+    } catch (err) {
+      console.error(err)
+      res.status(500).json({ message: 'Internal server error' })
+    }
+  }
+
+export {createUser, getUsers, updateUser}
