@@ -23,6 +23,17 @@ async function addIncome(req: Request, res: Response) {
     }
 }
 
+async function getIncomeAndEnvelopes(req: Request, res: Response) {
+    const [amount, envelopes] = await Promise.all([Income.findOne(), Envelope.find()]);
+    const data = {amount, envelopes}
+    
+    if (amount) {
+        res.json(data);
+    } else {
+        res.status(500);
+    }
+}
+
 async function allocateIncome (req: Request, res: Response){
     const { envelopeId, amount } = req.body
     const income = await Income.findOne()
@@ -55,4 +66,22 @@ async function spendFromEnvelope (req: Request, res: Response){
     res.json(envelope)
   }
 
-export {getEnvelopes, addIncome, allocateIncome, spendFromEnvelope};
+  async function createEnvelope(req: Request, res: Response) {
+    try {
+      const { name, balance = 0 } = req.body;
+  
+      if (!name) {
+        return res.status(400).json({ error: 'Envelope name is required' });
+      }
+  
+      const envelope = new Envelope({ name, balance });
+      await envelope.save();
+  
+      res.status(201).json(envelope);
+    } catch (error) {
+      console.error('Error creating envelope:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+
+export {getEnvelopes, addIncome, allocateIncome, spendFromEnvelope, getIncomeAndEnvelopes, createEnvelope};

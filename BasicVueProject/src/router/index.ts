@@ -26,6 +26,11 @@ const router = createRouter({
       path: '/postUser',
       name: 'Post User',
       component: () => import('../views/PostUser.vue')
+    },
+    {
+      path: '/envelope',
+      name: 'Envelope Management',
+      component: () => import('../views/EnvelopeBudget.vue')
     }
 
   ],

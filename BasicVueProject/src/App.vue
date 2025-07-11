@@ -11,6 +11,7 @@ import BasicButton from './components/BasicButton.vue'
         <RouterLink to="/about">About</RouterLink> -->
         <RouterLink to="/getUsers">Get All Users</RouterLink>
         <RouterLink to="/postUser">Create New User</RouterLink>
+        <RouterLink to="/envelope">Envelopes</RouterLink>
       </nav>
   </header>
 
