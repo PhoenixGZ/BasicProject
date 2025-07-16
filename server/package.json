@@ -8,10 +8,11 @@
   "devDependencies": {
     "@types/cors": "^2.8.13",
     "@types/express": "^5.0.3",
+    "@types/mongoose": "^5.11.96",
     "@types/node": "^24.0.12",
+    "@types/uuid": "^10.0.0",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.8.3",
-    "@types/mongoose": "^5.11.96"
+    "typescript": "^5.8.3"
   },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only ./main.ts",
