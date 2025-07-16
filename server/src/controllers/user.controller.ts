@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import User from '../models/User'
+import Account from '../models/Account'
 import bcrypt from 'bcryptjs'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -12,13 +13,19 @@ export async function createUser(req: Request, res: Response) {
         required: ['name', 'email', 'password'],
       })
     }
+
+    const user = await User.findOne({ email })
+    if(user) {
+        return res.status(400).json({ error: 'User with the same email already exists' })
+    }
   
     try {
       const hashed = await bcrypt.hash(password, 10)
       const user = await User.create({ id: uuidv4(), name, email, password: hashed })
       res.status(201).json(user)
     } catch (err) {
-      res.status(400).json({ error: 'Failed to create user', details: err })
+      console.log("Failed to create user:", err)
+      res.status(400).json({ error: 'Failed to create user'})
     }
   }
   
@@ -84,9 +91,32 @@ export async function createUser(req: Request, res: Response) {
   }
   
   export async function deleteUserByID(req: Request, res: Response) {
-    const result = await User.deleteOne({ id: req.params.userId })
-    if (result.deletedCount === 0) return res.status(404).json({ error: 'User not found' })
-    res.status(204).send()
+    const userId = req.params.userId
+  
+    try {
+      const user = await User.findOne({ id: userId })
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' })
+      }
+  
+      const accounts = await Account.find({ userId })
+      if (accounts.length > 0) {
+        return res.status(400).json({
+          error: 'User cannot be deleted while linked accounts exist',
+          accounts,
+        })
+      }
+  
+      const result = await User.deleteOne({ id: userId })
+      if (result.deletedCount === 0) {
+        return res.status(400).json({ error: 'Failed to delete user' })
+      }
+  
+      return res.status(204)
+    } catch (err) {
+      console.error('Error deleting user:', err)
+      res.status(500).json({ error: 'Internal server error' })
+    }
   }
 
   async function getUser(userId: string) {

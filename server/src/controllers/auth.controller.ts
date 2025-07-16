@@ -2,8 +2,10 @@ import { Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import User from '../models/User'
+import dotenv from 'dotenv';
+dotenv.config();
 
-const JWT_SECRET = process.env.JWT_SECRET || 'supersecret'
+const JWT_SECRET = process.env.JWT_SECRET!
 
 export async function loginUser(req: Request, res: Response) {
   const { email, password } = req.body
@@ -18,6 +20,7 @@ export async function loginUser(req: Request, res: Response) {
   }
 
   const match = await bcrypt.compare(password, user.password)
+  const pass = await bcrypt.hash(password, 10)
   if (!match) {
     return res.status(401).json({ error: 'Invalid credentials' })
   }
