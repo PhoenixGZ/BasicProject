@@ -3,6 +3,23 @@ import { Request, Response } from 'express'
 import Account from '../models/Account'
 
 export async function createAccount(req: Request, res: Response) {
+  const { accountNumber, type, userId } = req.body
+
+  if (!accountNumber || !type || !userId) {
+    return res.status(400).json({
+      error: 'Missing required fields',
+      required: ['accountNumber', 'type', 'userId'],
+    })
+  }
+
+  const validTypes = ['checking', 'savings']
+  if (!validTypes.includes(type)) {
+    return res.status(400).json({
+      error: 'Invalid account type',
+      validOptions: validTypes,
+    })
+  }
+
   try {
     const account = await Account.create({ ...req.body })
     res.status(201).json(account)
