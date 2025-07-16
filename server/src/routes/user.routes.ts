@@ -3,8 +3,8 @@ import { fetchUserByID, updateUserByID, deleteUserByID } from '../controllers/us
 
 const router = Router()
 
-router.get('/:userId', fetchUserByID)
-router.patch('/:userId', updateUserByID)
-router.delete('/:userId', deleteUserByID)
+router.get('/', fetchUserByID)
+router.patch('/', updateUserByID)
+router.delete('/', deleteUserByID)
 
 export default router

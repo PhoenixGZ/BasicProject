@@ -16,7 +16,7 @@ curl -X POST http://localhost:3000/v1/users \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Alice Example",
-    "email": "alic@example.com",
+    "email": "alic123@example.com",
     "password": "supersecure1234"
   }'
 ```
@@ -26,8 +26,8 @@ To authenticate:
 curl -X POST http://localhost:3000/v1/auth/login \
   -H "Content-Type: application/json" \
   -d '{
-    "email": "alic@example.com",
-    "password": "supersecure123"
+    "email": "alic123@example.com",
+    "password": "supersecure1234"
   }'
 ```
 
@@ -38,13 +38,13 @@ curl -X GET http://localhost:3000/v1/accounts \
 ```
 
 ```
-curl -X GET http://localhost:3000/v1/users/0eedc7b3-814d-4187-be1f-33ad7f00bbb0 \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwZWVkYzdiMy04MTRkLTQxODctYmUxZi0zM2FkN2YwMGJiYjAiLCJpYXQiOjE3NTI2OTMyNjMsImV4cCI6MTc1MjY5Njg2M30.XX3aYCs05qowWjVV96EcNSuD49bJadq4JOwrSG5zweY"
+curl -X DELETE http://localhost:3000/v1/users/556437fe-9266-4825-9335-516bbd8354d4 \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1NTY0MzdmZS05MjY2LTQ4MjUtOTMzNS01MTZiYmQ4MzU0ZDQiLCJpYXQiOjE3NTI2OTQ3MDUsImV4cCI6MTc1MjY5ODMwNX0.qOUZJb-kmfX9nrq2yk3LYMidksMrwokGYlgt0AUiGY0"
 ```
 
 ```
-curl -X PATCH http://localhost:3000/v1/users/0eedc7b3-814d-4187-be1f-33ad7f00bbb0 \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwZWVkYzdiMy04MTRkLTQxODctYmUxZi0zM2FkN2YwMGJiYjAiLCJpYXQiOjE3NTI2OTMyNjMsImV4cCI6MTc1MjY5Njg2M30.XX3aYCs05qowWjVV96EcNSuD49bJadq4JOwrSG5zweY" \
+curl -X PATCH http://localhost:3000/v1/users/c7d85595-a5cb-40ca-859a-6c3ed7e9d9ca \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjN2Q4NTU5NS1hNWNiLTQwY2EtODU5YS02YzNlZDdlOWQ5Y2EiLCJpYXQiOjE3NTI2OTU3NzYsImV4cCI6MTc1MjY5OTM3Nn0.sg54k9pbaIUpSWvae5uI7i_hY8jbugLJBOWgrqDS5k0" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Updated Alice",

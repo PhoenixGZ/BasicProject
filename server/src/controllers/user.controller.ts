@@ -30,28 +30,10 @@ export async function createUser(req: Request, res: Response) {
   }
   
   export async function fetchUserByID(req: Request, res: Response) {
-    const authUserId = (req as any).userId
-    const requestedUserId = req.params.userId
-  
-    const user = await getUser(requestedUserId)
-  
-    // This seems a bit weird, but its the only way I can fulfill both conditions(User not found + user authenticated)
-    if (!user) {
-      return res.status(404).json({
-        error: 'User not found',
-        userId: requestedUserId
-      })
-    }
-
-    if (!isAuthorized(authUserId, requestedUserId)) {
-        return res.status(403).json({ error: 'Access denied: cannot view other users' })
-      }
-  
-    res.status(200).json(user)
+    return res.status(200).json((req as any).user)
   }
   
   export async function updateUserByID(req: Request, res: Response) {
-    const authUserId = (req as any).userId
     const requestedUserId = req.params.userId
 
     const { name, email, password } = req.body
@@ -61,15 +43,6 @@ export async function createUser(req: Request, res: Response) {
     }
   
     try {
-      const user = await getUser(requestedUserId)
-
-      if (!user) {
-        return res.status(404).json({ error: 'User not found', userId: requestedUserId })
-      }
-
-      if (!isAuthorized(authUserId, requestedUserId)) {
-        return res.status(403).json({ error: 'Access denied: cannot update other users' })
-      }
 
       const updateData: Partial<{ name: string; email: string; password: string }> = {}
       if (name) updateData.name = name
@@ -91,15 +64,12 @@ export async function createUser(req: Request, res: Response) {
   }
   
   export async function deleteUserByID(req: Request, res: Response) {
-    const userId = req.params.userId
+    const requestedUserId = req.params.userId
   
     try {
-      const user = await User.findOne({ id: userId })
-      if (!user) {
-        return res.status(404).json({ error: 'User not found' })
-      }
+
   
-      const accounts = await Account.find({ userId })
+      const accounts = await Account.find({ requestedUserId })
       if (accounts.length > 0) {
         return res.status(400).json({
           error: 'User cannot be deleted while linked accounts exist',
@@ -107,7 +77,7 @@ export async function createUser(req: Request, res: Response) {
         })
       }
   
-      const result = await User.deleteOne({ id: userId })
+      const result = await User.deleteOne({ id: requestedUserId })
       if (result.deletedCount === 0) {
         return res.status(400).json({ error: 'Failed to delete user' })
       }
@@ -118,16 +88,3 @@ export async function createUser(req: Request, res: Response) {
       res.status(500).json({ error: 'Internal server error' })
     }
   }
-
-  async function getUser(userId: string) {
-    try {
-      return await User.findOne({ id: userId }).lean() || null
-    } catch (error) {
-      console.error('Error fetching user:', error)
-      return null
-    }
-  }
-
-  function isAuthorized(authId: string, targetId: string): boolean {
-    return String(authId).trim() === String(targetId).trim()
-  }  
