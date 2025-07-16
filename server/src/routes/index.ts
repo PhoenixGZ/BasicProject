@@ -3,7 +3,7 @@ import { Application } from "express";
 import publicRoutes from './public.routes';
 import userRoutes from './user.routes';
 import accountRoutes from './account.routes';
-import { injectUser } from '../middleware/injectUser.middleware'
+import { injectUser } from '../middleware/user.middleware'
 import { authenticate } from '../middleware/auth.middleware'
 
 
