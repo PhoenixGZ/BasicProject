@@ -1,18 +1,19 @@
 import { Request, Response } from 'express'
-
 import Account from '../models/Account'
 
-export async function createAccount(req: Request, res: Response) {
-  const { accountNumber, type, userId } = req.body
+const validTypes = ['checking', 'savings']
 
-  if (!accountNumber || !type || !userId) {
+export async function createAccount(req: Request, res: Response) {
+  const userId = (req as any).userId
+  const { accountNumber, type } = req.body
+
+  if (!accountNumber || !type) {
     return res.status(400).json({
       error: 'Missing required fields',
-      required: ['accountNumber', 'type', 'userId'],
+      required: ['accountNumber', 'type'],
     })
   }
 
-  const validTypes = ['checking', 'savings']
   if (!validTypes.includes(type)) {
     return res.status(400).json({
       error: 'Invalid account type',
@@ -20,16 +21,25 @@ export async function createAccount(req: Request, res: Response) {
     })
   }
 
+  const existingAccount = await Account.findOne({ accountNumber })
+  if (existingAccount) {
+    return res.status(400).json({
+      error: 'Account number already exists',
+      accountNumber,
+    })
+  }
+
   try {
-    const account = await Account.create({ ...req.body })
+    const account = await Account.create({ ...req.body, userId })
     res.status(201).json(account)
   } catch (err) {
     res.status(400).json({ error: 'Failed to create account', details: err })
   }
 }
 
-export async function listAccounts(_: Request, res: Response) {
-  const accounts = await Account.find()
+export async function listAccounts(req: Request, res: Response) {
+  const userId = (req as any).userId
+  const accounts = await Account.find({ userId })
   res.json(accounts)
 }
 

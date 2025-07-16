@@ -67,8 +67,6 @@ export async function createUser(req: Request, res: Response) {
     const requestedUserId = req.params.userId
   
     try {
-
-  
       const accounts = await Account.find({ requestedUserId })
       if (accounts.length > 0) {
         return res.status(400).json({

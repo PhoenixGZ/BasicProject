@@ -16,7 +16,7 @@ curl -X POST http://localhost:3000/v1/users \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Alice Example",
-    "email": "alic123@example.com",
+    "email": "alic1234@example.com",
     "password": "supersecure1234"
   }'
 ```
@@ -26,7 +26,7 @@ To authenticate:
 curl -X POST http://localhost:3000/v1/auth/login \
   -H "Content-Type: application/json" \
   -d '{
-    "email": "alic123@example.com",
+    "email": "alic1234@example.com",
     "password": "supersecure1234"
   }'
 ```
@@ -44,7 +44,7 @@ curl -X DELETE http://localhost:3000/v1/users/556437fe-9266-4825-9335-516bbd8354
 
 ```
 curl -X PATCH http://localhost:3000/v1/users/c7d85595-a5cb-40ca-859a-6c3ed7e9d9ca \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjN2Q4NTU5NS1hNWNiLTQwY2EtODU5YS02YzNlZDdlOWQ5Y2EiLCJpYXQiOjE3NTI2OTU3NzYsImV4cCI6MTc1MjY5OTM3Nn0.sg54k9pbaIUpSWvae5uI7i_hY8jbugLJBOWgrqDS5k0" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIwZWVkYzdiMy04MTRkLTQxODctYmUxZi0zM2FkN2YwMGJiYjAiLCJpYXQiOjE3NTI2OTMyNjMsImV4cCI6MTc1MjY5Njg2M30.XX3aYCs05qowWjVV96EcNSuD49bJadq4JOwrSG5zweY" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Updated Alice",
@@ -52,7 +52,25 @@ curl -X PATCH http://localhost:3000/v1/users/c7d85595-a5cb-40ca-859a-6c3ed7e9d9c
   }'
 ```
 
+```
+curl -X POST http://localhost:3000/v1/account \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "name": "Personal Bank Account",
+    "accountType": "personal"
+  }'
+
+```
+
+curl -X GET http://localhost:3000/v1/users/cb3792b4-c5d0-453d-8655-0be412cad417 \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjYjM3OTJiNC1jNWQwLTQ1M2QtODY1NS0wYmU0MTJjYWQ0MTciLCJpYXQiOjE3NTI2OTczODEsImV4cCI6MTc1MjcwMDk4MX0.WFKBdi1Ow7ipqJxDML13CPtjJF4JKuCexH3sKGYAX94" \
+  -H "Content-Type: application/json" 
 a0ad0a79-b9bf-4651-8d32-a0a8fd6a240d
+
+
+cb3792b4-c5d0-453d-8655-0be412cad417
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjYjM3OTJiNC1jNWQwLTQ1M2QtODY1NS0wYmU0MTJjYWQ0MTciLCJpYXQiOjE3NTI2OTczODEsImV4cCI6MTc1MjcwMDk4MX0.WFKBdi1Ow7ipqJxDML13CPtjJF4JKuCexH3sKGYAX94
 
 TODO:
 - Switch properties depending on if runninig in shell or in Docker
